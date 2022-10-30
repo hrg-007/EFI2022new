@@ -1,22 +1,21 @@
 import sys
-from PySide6.QtCore import (QCoreApplication, QRect, QSize, Qt)
 from PySide6.QtGui import QIcon
+from PySide6.QtCore import (QCoreApplication, QRect, QSize, Qt)
 from PySide6.QtWidgets import (QApplication, QFrame, QLabel, QLineEdit, QMainWindow, QPushButton, QStackedWidget, QTableWidget, QTableWidgetItem, QVBoxLayout, QWidget)
 
-class UiMainKiosko():
-    def setupUi(self, MainKiosko):
-        MainKiosko.setWindowTitle(QCoreApplication.translate("MainKiosko", "Gestor de Stock"))
-        MainKiosko.setObjectName("MainKiosko")
-        MainKiosko.setFixedSize(900, 600) # dimenciones de la ventana.
-        icon = QIcon()
-        icon.addFile("vista/icons/kiosko.ico", QSize(), QIcon.Normal, QIcon.Off)
-        MainKiosko.setWindowIcon(icon)
-        MainKiosko.setStyleSheet("background-color: rgb(36, 36, 36); font: 10pt \"Arial\";")
-        MainKiosko.setIconSize(QSize(30, 30))
-        self.centralwidget = QWidget(MainKiosko)
+class MainKiosko(QMainWindow):
+    def __init__(self):
+        super().__init__()
+        self.setWindowTitle("Gestor de Stock") # titulo de la ventana.
+        self.setObjectName("MainKiosko") # nombre del objeto ventana.
+        self.setFixedSize(900, 600) # dimenciones de la ventana.
+        icon = QIcon() # crea un objeto para un icono.
+        icon.addFile("vista/icons/kiosko.ico", QSize(), QIcon.Normal, QIcon.Off) # coloca un archivi .ico al objeto 'icon'.
+        self.setWindowIcon(icon) # coloca el icono en la ventana.
+        self.setStyleSheet("background-color: rgb(36, 36, 36); font: 10pt \"Arial\";") # estilo de la venta principal.
+        self.centralwidget = QWidget(self) # widget central de la ventana.
         self.centralwidget.setObjectName("centralwidget")
         self.layoutMain = QVBoxLayout(self.centralwidget)
-        self.layoutMain.setSpacing(0)
         self.layoutMain.setObjectName("layoutMain")
         self.layoutMain.setContentsMargins(0, 0, 0, 0)
         self.framePrincipal = QFrame(self.centralwidget)
@@ -24,7 +23,6 @@ class UiMainKiosko():
         self.framePrincipal.setFrameShape(QFrame.StyledPanel)
         self.framePrincipal.setFrameShadow(QFrame.Raised)
         self.layoutDelFramePrincipal = QVBoxLayout(self.framePrincipal)
-        self.layoutDelFramePrincipal.setSpacing(0)
         self.layoutDelFramePrincipal.setObjectName("layoutDelFramePrincipal")
         self.layoutDelFramePrincipal.setContentsMargins(0, 0, 0, 0)
 
@@ -419,7 +417,7 @@ class UiMainKiosko():
         self.paginas.addWidget(self.paginaInfo)
         self.layoutDelFramePrincipal.addWidget(self.paginas)
         self.layoutMain.addWidget(self.framePrincipal)
-        MainKiosko.setCentralWidget(self.centralwidget)
+        self.setCentralWidget(self.centralwidget)
 
         self.labelInfoEnInfo.setText(QCoreApplication.translate("paginaInfo", "PROYECTO FINAL PROGRAMACION 1 iTec RIO CUARTO.\n""\n"
 "Este proyecto consiste en un gestor de stock para un Kiosko. \n"
@@ -432,11 +430,10 @@ class UiMainKiosko():
 "* Guzman, Milton\n"
 "* Palacios, Lautaro"))
 
+        self.show()
 
 if __name__ == "__main__":
     app = QApplication(sys.argv) #crear una nueva instancia de QApplication
-    windows = UiMainKiosko() #cree una nueva instancia de la interfaz de usuario.
-    qMw = QMainWindow() #crear una instancia de QMainWindow
-    windows.setupUi(qMw) #cree sus widgets dentro de la ventana que acaba de crear.
-    qMw.show() #mostrar la ventana.
+    windows = MainKiosko() #cree una nueva instancia de la interfaz de usuario.
+    windows.show() #mostrar la ventana.
     sys.exit(app.exec_()) #Salga del programa cuando cierre la ventana de la aplicación.

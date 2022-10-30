@@ -1,14 +1,13 @@
 # EFI2022 Progamacion 1.
 import sys
-from modelo.adminDB import *
-from PySide6.QtWidgets import QApplication,QMainWindow,QTableWidgetItem,QAbstractItemView
 from vista.interfaz import *
+from modelo.adminDB import *
+from PySide6.QtWidgets import QApplication,QTableWidgetItem,QAbstractItemView
 
-class Controles(QMainWindow):
+class Controles():
     def __init__(self):
         super().__init__()
-        self.userInterface=UiMainKiosko() # instancia de la interfaz.
-        self.userInterface.setupUi(self)
+        self.userInterface=MainKiosko() # instancia de la interfaz.
 
     # Botones para retroceder pagina.
         self.userInterface.botonAtrasEnAjustes.clicked.connect(lambda:self.userInterface.paginas.setCurrentWidget(self.userInterface.paginaMenu))
@@ -111,9 +110,7 @@ class Controles(QMainWindow):
         self.userInterface.botonEliminarEnEliminar.clicked.connect(self.eliminar) # llamada a la funcion que elimina el registro de la DB.
         self.userInterface.inputBuscarEnEliminar.textChanged.connect(self.buscar)
 
-
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     window = Controles()
-    window.show()
     sys.exit(app.exec_())
