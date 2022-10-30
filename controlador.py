@@ -6,7 +6,6 @@ from PySide6.QtWidgets import QApplication,QTableWidgetItem,QAbstractItemView
 
 class Controles():
     def __init__(self):
-        super().__init__()
         self.userInterface=MainKiosko() # instancia de la interfaz.
 
     # Botones para retroceder pagina.
